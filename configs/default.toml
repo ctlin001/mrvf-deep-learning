@@ -1,0 +1,39 @@
+# Default configuration. These values reproduce the manuscript analysis.
+# Relative paths here are resolved against the repository root, so the CLI works from any directory.
+# The defaults assume the simulation data sits one level above the repository (../subsamples, ../echotimes.mat).
+
+[paths]
+dict_dir = "../subsamples/subsamples_v3"   # folder holding the QuasiRand_*.mat dictionaries
+echotimes_file = "../echotimes.mat"
+params_file = "QuasiRand_par_t2_200.mat"    # ground-truth parameters, key 'par_save'
+noise_free_file = "QuasiRand_t2_200.mat"    # noise-free signals,     key 'Dico40_save'
+noisy_pattern = "QuasiRand_t2_snr{snr}.mat" # noisy signals,          key 'Dico40_save'
+
+[params]  # SO2 [fraction], CBV [fraction], R [m], T2 [s]
+mins = [0.0, 0.0025, 1.0e-6, 0.050]
+maxs = [1.0, 0.15, 25.0e-6, 0.200]
+
+[geometry]  # how the 40 GESFIDE echoes split into segments
+n_fid = 14       # Part A: echoes 0-13
+n_rephas = 16    # Part B: echoes 14-29 (spin echo = echo 29)
+n_postse = 10    # Part C: echoes 30-39
+
+[scaling]  # [min, max] in s^-1 used to scale R2*_A/B/C into [0, 1]
+a = [2.0, 55.0]
+b = [-30.0, 22.0]
+c = [2.0, 55.0]
+
+[train]
+snr_levels = [20, 50, 100, 150]
+n_samples = 1600000
+test_frac = 0.15
+val_frac = 0.15
+batch_size = 16384
+epochs = 200
+patience = 25
+lr = 5e-5
+dropout = 0.05
+param_weights = [1.0, 12.0, 8.0, 1.0]   # SO2, CBV, R, T2
+split_seed = 42
+subsample_seed = 42   # the original notebooks did not seed this step
+torch_seed = 42       # nor the network init / batch shuffling; a fixed seed makes runs repeatable

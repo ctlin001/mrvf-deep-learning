@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mrvf"
+version = "0.1.0"
+description = "Deep-learning MR vascular fingerprinting from GESFIDE signals"
+requires-python = ">=3.11"
+dependencies = [
+  "numpy",
+  "scipy",
+  "scikit-learn",
+  "h5py",
+  "torch",
+  "matplotlib",
+]
+
+[project.optional-dependencies]
+notebooks = ["jupyter", "pandas", "nibabel", "nilearn"]
+
+[tool.setuptools.packages.find]
+where = ["src"]

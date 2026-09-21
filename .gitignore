@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.egg-info/
+.venv/
+
+# Jupyter / local tooling
+.ipynb_checkpoints/
+.claude/
+
+# Anything you generate by running the pipeline (shipped reference results live in results/)
+runs/
+
+# Human-subject data and per-subject volumes/maps: never commit
+*.nii
+*.nii.gz
+*.mat
+*.tfm
+results/**/invivo/
+results/**/mni_reg/
+results/**/native_reg/
+results/invivo_smooth_v1/*.mat
+results/invivo_smooth_v1/roi_statistics_smooth.csv
+results/invivo_smooth_v1/gas_stats/roi_gm_*.csv
+
+# Large regenerable arrays
+*.npz
+*.npy
+*.zip
